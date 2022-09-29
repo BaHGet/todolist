@@ -36,7 +36,7 @@ input{
 button{
   background-color:#2d1d7a;
   color:#ffffff;
-  width: 100px;
+  width: 35px;
   height: 35px;
   border-radius: 100px;
   text-align: center;
@@ -141,13 +141,11 @@ h3.todo-list{
 .todo-list-item-button{
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 30px;
-  background-image: url('https://us.123rf.com/450wm/tmricons/tmricons1707/tmricons170700289/81206333-delete-sign-icon-remove-button.jpg?ver=6');
   background-color:transparent;
   color: black;
   position: sticky;
-  width: 28px;
-  height: 36px;
+  width: auto;
+  height: auto;
   border-radius:10px;
   box-shadow: none;
   border-width:0px;
