@@ -13,6 +13,11 @@ body{
   box-shadow: 20px 20px 50px #0e0731;
   border-radius: 10px;
 }
+
+.login-button{
+  width: auto;
+}
+
 h1, form, input, h3{
   text-align: center;
   font-family: 'M PLUS Rounded 1c', sans-serif;
@@ -144,8 +149,6 @@ h3.todo-list{
   background-color:transparent;
   color: black;
   position: sticky;
-  width: auto;
-  height: auto;
   border-radius:10px;
   box-shadow: none;
   border-width:0px;

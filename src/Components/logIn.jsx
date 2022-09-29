@@ -20,7 +20,7 @@ const LoginForm = ({userName, setUserName, isloged,setIsloged, todos, setTodos})
                     <input type="text" placeholder="User_Name" autoComplete='off' />
                     <input type="text" name="password" placeholder="Comeing Soon" autoComplete='off'/>
                     <br />
-                    <button>Log In</button>
+                    <button className='login-button'>Log In</button>
                 </form>
             </div>
         );
