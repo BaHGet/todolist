@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const TodoPage =({userName, todos, setTodos}) =>{
     // varable for make every todo with a key starts from 0
@@ -10,6 +10,18 @@ const TodoPage =({userName, todos, setTodos}) =>{
             setTodos(JSON.parse(localStorage.getItem(userName)))
         }
     }, [userName, setTodos])
+
+    const inputRef = useRef(null);
+    
+    const deleteAll = (e) =>{
+        e.preventDefault();
+        localStorage.removeItem(userName);
+        setTodos([]);
+    }
+
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
 
     // add Todo
     const handlesubmit =(e) =>{
@@ -37,7 +49,6 @@ const TodoPage =({userName, todos, setTodos}) =>{
     // remove Todo
     const handleremove = (e) =>{
         e.preventDefault();
-        console.log(e)
         // if  user click the button
         if(e.target.localName === 'button'){
             const item = e.target.parentNode.children[0].textContent;
@@ -63,9 +74,13 @@ const TodoPage =({userName, todos, setTodos}) =>{
             <h1 className='todo-list'>Todo List</h1>
             <h3 className='todo-list'>{userName}'s todo list</h3>
             <form className='todo-list'>
-                <input type='text' className='todo-list-input' placeholder="Add your new todo" />
+                <input type='text' className='todo-list-input' ref={inputRef} placeholder="Add your new todo" />
                 <input type='button' className='todo-list-button' placeholder="add" onClick={handlesubmit} />
             </form>
+            <div className='del-div'>
+                <button className='del-btn' onClick={deleteAll}>Delete All</button>
+            </div>
+
             <div>
                 <ul className='todo-list-items'>
                 {todos.map((todo) =>{

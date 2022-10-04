@@ -1,7 +1,5 @@
 body{
   background-color:#1d1b27;
-  overflow: hidden;
-  height: auto;
 }
 
 .container{
@@ -58,11 +56,10 @@ button:hover, input:hover, input:focus, .todo-list-button:hover,.todo-list-item-
 .page-container{
   background-color: white;
   width: 400px;
-  height: auto;
   margin: auto;
-  margin-top: 220px;
+  margin-top: 100px;
   padding: 5px;
-  box-shadow: 20px 20px 50px #0e0731;
+
   border-radius: 10px;
 }
 
@@ -152,4 +149,34 @@ h3.todo-list{
   border-radius:10px;
   box-shadow: none;
   border-width:0px;
+}
+
+.del-div{
+  position: sticky;
+  display: flex;
+  flex-direction: row-reverse;
+  width: auto;
+}
+
+
+.del-btn{
+  width: auto;
+  margin: 10px;
+  align-items:right;
+}
+
+
+body::-webkit-scrollbar {
+  width:10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #1d1b27;
+}
+
+body::-webkit-scrollbar-thumb {
+  margin:auto;
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+  border-radius:10px;
 }

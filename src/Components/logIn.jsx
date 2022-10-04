@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import TodoPage from './TodoPage'
 
 const LoginForm = ({userName, setUserName, isloged,setIsloged, todos, setTodos})=>{
@@ -9,7 +10,11 @@ const LoginForm = ({userName, setUserName, isloged,setIsloged, todos, setTodos})
             setIsloged(!isloged);
         }
     }
+    const inputRef = useRef(null);
 
+    useEffect(() => {
+        inputRef.current.focus();
+    }, []);
     return(
         isloged ? 
             <TodoPage userName={userName}  todos={todos} setTodos={setTodos} />
@@ -17,7 +22,7 @@ const LoginForm = ({userName, setUserName, isloged,setIsloged, todos, setTodos})
             <div className="container">
                 <h1>Todo List</h1>
                 <form onSubmit={handleonsubmit}>
-                    <input type="text" placeholder="User_Name" autoComplete='off' />
+                    <input type="text" ref={inputRef} placeholder="User_Name" autoComplete='off' required />
                     <input type="text" name="password" placeholder="Comeing Soon" autoComplete='off'/>
                     <br />
                     <button className='login-button'>Log In</button>
