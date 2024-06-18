@@ -1,0 +1,31 @@
+{
+  "name": "todolist-backend",
+  "version": "0.1.0",
+  "description": "a backend for todo list app using express.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BaHGet/todolist.git"
+  },
+  "keywords": [
+    "express.js",
+    "mongodb"
+  ],
+  "author": "BaHGet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BaHGet/todolist/issues"
+  },
+  "homepage": "https://github.com/BaHGet/todolist#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.3"
+  },
+  "devDependencies": {
+    "express-reload": "^1.2.0"
+  }
+}
