@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
+const dayjs = require('dayjs')
+var timezone = require("dayjs/plugin/timezone");
+var utc = require("dayjs/plugin/utc");
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+let now = dayjs.tz(dayjs(), dayjs.tz.guess()).format('YYYY-MM-DD HH:mm:ss Z')
 
 const todosSchema = new mongoose.Schema({
-    "userName": {
+    "username": {
         type: String,
         required: true,
     },
@@ -14,8 +21,8 @@ const todosSchema = new mongoose.Schema({
         required: true,
     },
     "created_at": {
-        type: Date,
-        value: Date.now(),
+        type: String,
+        default : now,
         required: false,
     },
 });

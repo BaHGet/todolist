@@ -5,22 +5,22 @@ const user = require("../models/user");
 
 router.post("/", async (req, res) => {
     const data = new todos({
-        userName: req.body.userName,
+        username: req.body.username,
         title: req.body.title,
         description: req.body.description,
-        created_at: Date.now(),
+        created_at: req.body.created_at,
     });
     try {
-        let exist = await todos.findOne({ title: req.body.title });
-        if (exist) {
-            return res.status(400).json({ message: "Task already exists" });
+        let exist = await user.findOne({ username: req.body.username });
+        if (exist != null) {
+                const dataToSave = await data.save();
+                return res.status(200).json({message: "Todo created",dataToSave});
         }else{
-            const dataToSave = await data.save();
-            res.status(200).json(dataToSave);
+            return res.status(400).json({ message: "User Not Found" });
         }
     }
     catch (error) {
-        res.status(400).json({ message: error.message });
+        return res.status(400).json({ message: error.message});
     }
 });
 
