@@ -1,0 +1,12 @@
+[build]
+  functions = "functions"
+  publish = "public"
+
+[dev]
+  functions = "functions"
+  publish = "public"
+  autoLaunch = false
+
+[functions]
+  directory = "functions"
+  node_bundler = "esbuild"
