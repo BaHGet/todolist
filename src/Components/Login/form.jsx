@@ -5,7 +5,7 @@ import Login from "./login";
 import { Button } from "react-bootstrap";
 import TodoPage from "./../main/todosPage";
 import SignUp from "./signup";
-import { getUser } from "./../../userApi";
+import { createUser } from "./../../userApi";
 
 
 const Form = () => {
@@ -34,13 +34,13 @@ const Form = () => {
                 email: email,
                 password: password
             }
-            if(await getUser(data,setError)){
+            if(await createUser(data,setError)){
                 window.localStorage.setItem('user', JSON.stringify({
                     username: data.username,
                     email: data.email
                 }))
                 setIsThereIsError(false)
-                // window.location.reload();
+                window.location.reload();
             }else{
                 setIsThereIsError(true)
             }
