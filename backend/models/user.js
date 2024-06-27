@@ -5,10 +5,10 @@ var utc = require("dayjs/plugin/utc");
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
-let now = dayjs.tz(dayjs(), dayjs.tz.guess()).format('YYYY-MM-DD HH:mm:ss Z')
+const now = dayjs.tz(dayjs(), dayjs.tz.guess()).format('YYYY-MM-DD HH:mm:ss ')
 
 const userSchema = new mongoose.Schema({
-    "userName": {
+    "username": {
         type: String,
         required: true,
     },

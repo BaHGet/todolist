@@ -3,7 +3,7 @@ import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const SignUp = ({setName, setUserName, setEmail, setPassWord, setPage, handleSubmet, validated, setValidated}) => {
+const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, validated, setValidated, isLoading }) => {
     const [Check, setChecked] = useState(false);
     useEffect(() => {
         setValidated(false)
@@ -12,18 +12,6 @@ const SignUp = ({setName, setUserName, setEmail, setPassWord, setPage, handleSub
     return (
         <div className={`form-container align-items-center `}>
             <Form className="text-light" validated={validated} >
-                <FloatingLabel
-                    controlid="floatingInput"
-                    label="Name"
-                    className="mb-3 w-100 text-dark"
-                    
-                >
-                    <Form.Control required controlid="formBasicEmail" type="name" placeholder="Enter User Name" onChange={(e) => setName(e.target.value)}/>
-                    <Form.Control.Feedback type="invalid">
-                        Please choose a name.
-                    </Form.Control.Feedback>
-                </FloatingLabel>
-
                 <FloatingLabel
                     controlid="floatingInput"
                     aria-required="true"
@@ -64,10 +52,14 @@ const SignUp = ({setName, setUserName, setEmail, setPassWord, setPage, handleSub
                 </Form.Group>
 
                 <Form.Group className='d-flex justify-content-between' >
-                    <Button className='text-light' type="submit" onClick={(e) => handleSubmet(e)} style={{backgroundColor: '#65737e'}}>
-                        Submit
+                    <Button 
+                        className='text-light' 
+                        type="submit" 
+                        onClick={(e) => handleSubmit(e)} 
+                        style={{backgroundColor: '#65737e'}}
+                    >
+                        {isLoading ? 'Loading…' : 'Submit'}
                     </Button>
-                    {/* <Button  type="reset" >Reset</Button> */}
                     <Button onClick={() => {setPage('login')}}>or Login</Button>
                 </Form.Group>
             </Form>
