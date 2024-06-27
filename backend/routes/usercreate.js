@@ -1,18 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const user = require("../models/user");
-
-const bcrypt = require('bcrypt');
-
-
-const hashPassword = async(password) =>{
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        return hashedPassword;
-    } catch (error) {
-        console.error('Error hashing password:', error);
-    }
-}
+const { Hashing, compareing } = require("../utilities/HashingAlgo");
 
 
 router.get("/", async (req, res) => {
