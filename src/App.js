@@ -1,17 +1,10 @@
-import {useState} from 'react';
-import './App.css';
-import LoginForm from './Components/logIn';
-
+import LoginForm from './Components/Login/loginForm';
+import "./App.css"
 
 function App() {
-  const [userName, setUserName] = useState('');
-  const [isloged, setIsloged] = useState(false);
-  const[todos, setTodos] = useState([]);
-
-
-  return(
-    <LoginForm userName={userName} setUserName={setUserName} isloged={isloged} setIsloged={setIsloged} todos={todos} setTodos={setTodos} />
-  );
+  return (
+    <LoginForm />
+  )
 }
 
 export default App;
