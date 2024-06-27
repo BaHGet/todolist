@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
-
 const Login = ({ setUserName, setPassWord, setPage, handleSubmet, validated }) => {
     const [Check, setChecked] = useState(false);
     
@@ -19,7 +17,7 @@ const Login = ({ setUserName, setPassWord, setPage, handleSubmet, validated }) =
                 </FloatingLabel>
 
                 <FloatingLabel controlId="floatingInputPassword" label="Password" className="mb-3 w-100 text-dark">
-                    <Form.Control required type={Check ? "text" : "password"} placeholder="Password"  autoComplete="off" onChange={(e) => setPassWord(e.target.value)} />
+                    <Form.Control required type={Check ? "text" : "password"} placeholder="Password"  autoComplete="off" onChange={(e) => setPassWord(e.target.value)}/>
                     <Form.Control.Feedback type="invalid">
                         Please choose a password.
                     </Form.Control.Feedback>

@@ -1,3 +1,15 @@
+/* 
+color-palette
+dark-background: #343d46 
+light-background: #c0c5ce
+
+dark-text: #4f5b66
+light-text: #65737e
+
+light: #a7adba
+
+*/
+
 body{
     background-color: #343d46 !important;
 }
@@ -16,7 +28,7 @@ body{
     text-align: center;
     font-weight: bold;
     color: #343d46;
-    background-color: #d4d4d4;
+    background-color: #a7adba;
 }
 .form-container{
     position: relative;
