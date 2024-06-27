@@ -1,0 +1,32 @@
+body{
+    background-color: #343d46 !important;
+}
+#root{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    margin-top: 10px;
+}
+.head-line{
+    width: 30vh;
+    height: fit-content;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #343d46;
+    background-color: #d4d4d4;
+}
+.form-container{
+    position: relative;
+    width: 400px;
+    height: fit-content;
+    padding: 20px;
+}
+
+@media screen and (max-width: 500px) {
+    .form-container {
+        /* margin: 30vh auto */
+    }
+}
