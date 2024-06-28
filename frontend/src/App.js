@@ -22,16 +22,9 @@ const App = () => {
       <Route 
         path="/todolist/"
         element={
-          <Form setUser={setUser} setSigned={setSigned} />
+          signed ? <TodosPage signed={signed} user={user} /> : <Form setUser={setUser} setSigned={setSigned} />
         }
       />
-      <Route 
-        path="/todolist/todos"
-        element={
-          <TodosPage signed={signed} user={user} />
-        }
-      />
-      
     </Routes>
   )
 }

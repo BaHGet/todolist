@@ -22,8 +22,8 @@ const Form = ({setSigned, setUser}) => {
         if(user){
             user = JSON.parse(user)
             setUser(user)
-            window.location.pathname = 'todolist/todos';
             setSigned(true)
+            window.location.reload();
         }
     }, [])
     const handleSubmit = async (event) => {
@@ -65,7 +65,7 @@ const Form = ({setSigned, setUser}) => {
                 localStorage.setItem('user', JSON.stringify({ username: res.username, email: res.email }));
                 setUser({ username: res.username, email: res.email })
                 setIsThereIsError(false)
-                window.location.pathname = 'todolist/todos';
+                window.location.reload();
             }else{
                 setIsThereIsError(true)
             }
