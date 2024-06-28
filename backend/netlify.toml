@@ -1,12 +1,6 @@
 [build]
-  functions = "backend/functions"
-  publish = "backend/public"
+  functions = "functions"
 
 [dev]
-  functions = "backend/functions"
-  publish = "backend/public"
   autoLaunch = false
 
-[functions]
-  directory = "backend/functions"
-  node_bundler = "esbuild"

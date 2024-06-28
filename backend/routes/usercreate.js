@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const user = require("../models/user");
-import queryString from 'query-string';
 const { Hashing, compareing } = require("../utilities/HashingAlgo");
 
 /* 
