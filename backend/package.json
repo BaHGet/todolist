@@ -28,7 +28,6 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.4.3",
-    "netlify-lambda": "^2.0.16",
     "query-string": "^9.0.0",
     "serverless": "^4.1.0",
     "serverless-http": "^3.2.0"
