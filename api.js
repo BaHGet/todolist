@@ -25,10 +25,12 @@ app.use(
 
 mongoose.pluralize(null);
 
-const userRouter = require("../routes/usercreate");
-const todosRouter = require("../routes/todos");
+const userRouter = require("./routes/usercreate");
+const todosRouter = require("./routes/todos");
 
-app.use("/.netlify/functions/api/user", userRouter);
-app.use("/.netlify/functions/api/todos", todosRouter);
+app.use("user", userRouter);
+app.use("/todos", todosRouter);
 
-module.exports.handler = serverless(app);
+app.listen(3000, () => {
+    console.log("Server is running on port 3000");
+});
