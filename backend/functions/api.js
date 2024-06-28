@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use(
     cors({
-        origin: "https://bahget.github.io", 
+        origin: "*", 
     })
 );
 
