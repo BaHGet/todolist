@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-const url = 'https://delightful-selkie-438170.netlify.app/.netlify/functions/api/user'
+const url = 'https://todolist-great.netlify.app/.netlify/functions/api/user'
 
 
 export const createUser = async (data, setError) => {
