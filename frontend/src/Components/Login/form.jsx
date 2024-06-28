@@ -22,8 +22,8 @@ const Form = ({setSigned, setUser}) => {
         if(user){
             user = JSON.parse(user)
             setUser(user)
-            setSigned(true)
             window.location.pathname = 'todolist/todos';
+            setSigned(true)
         }
     }, [])
     const handleSubmit = async (event) => {
