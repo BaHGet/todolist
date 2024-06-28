@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import './login-form.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Login from "./login";
-import { Button } from "react-bootstrap";
 import TodoPage from "./../main/todosPage";
 import SignUp from "./signup";
-import { createUser } from "./../../userApi";
+import { createUser, getUser } from "./../../userApi";
 
 
-const Form = () => {
+const Form = ({setSigned, setUser}) => {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassWord] = useState('');
@@ -18,6 +17,15 @@ const Form = () => {
     const [error, setError] = useState('');
     const [isLoading, setLoading] = useState(false);
 
+    useEffect(() => {
+        let user = localStorage.getItem('user')
+        if(user){
+            user = JSON.parse(user)
+            setUser(user)
+            setSigned(true)
+            window.location.pathname = '/todos';
+        }
+    }, [])
     const handleSubmit = async (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -46,8 +54,24 @@ const Form = () => {
             }
             setLoading(false)
         }
+        else if(page === 'login'){
+            const data = {
+                username: userName,
+                password: password
+            }
+            let res = await getUser(data,setError)
+            if(res){
+                setSigned(true);
+                localStorage.setItem('user', JSON.stringify({ username: res.username, email: res.email }));
+                setUser({ username: res.username, email: res.email })
+                setIsThereIsError(false)
+                window.location.pathname = '/todos';
+            }else{
+                setIsThereIsError(true)
+            }
+            setLoading(false)
+        }
         else{
-            
             setLoading(false)
         }
     }

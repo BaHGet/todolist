@@ -18,6 +18,12 @@ const compareing = async (password, hashedPassword) => {
     }
 }
 
+/* const data = async () => {
+    console.log( await compareing('200419@#', '$2b$10$wI/UW8zfyFDqJaBrETyyx.knGDRDAzbIIIrsL8n3pqZiKziO2jYSi'))
+}
+
+data(); */
+
 module.exports = {
     Hashing,
     compareing

@@ -15,7 +15,7 @@ db.once("open", () => console.log("Connected to Database"));
 
 app.use(express.json());
 
-app.use(cors())
+app.use(cors());
 
 const userRouter = require("../routes/usercreate");
 const todosRouter = require("../routes/todos");

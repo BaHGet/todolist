@@ -1,24 +1,34 @@
 const express = require("express");
 const router = express.Router();
 const user = require("../models/user");
+import queryString from 'query-string';
 const { Hashing, compareing } = require("../utilities/HashingAlgo");
+
+/* 
+user:{
+    username: String,
+    email: String,
+    password: String,
+    created_at: Date
+} 
+*/
 
 
 router.get("/", async (req, res) => {
-    const username = req.body.username;
+    const username = req.query.username;
     try {
-        const user = await user.findOne({ username: username });
-        if (!user) {
+        const User = await user.findOne({ username: username });
+        if (!User) {
             return res.status(400).json({ message: "User not found" });
         }
-        const data = {
-            username: user.username,
-            email: user.email,
-            created_at: user.created_at,
-        };
-        res.send(data);
+        if(!(await compareing(req.query.password, User.password))){
+            return res.status(400).json({ message: "Wrong Password" });
+        }
+        else{
+            return res.status(200).json({username: User.username, email: User.email});
+        }
     } catch (error) {
-        res.send(error);
+        res.status(400).send({message: error.message});
     }
 });
 
@@ -27,7 +37,7 @@ router.post("/", async (req, res) => {
         const data = new user({
             username: req.body.username,
             email: req.body.email,
-            password: await hashPassword(req.body.password),
+            password: await Hashing(req.body.password),
             created_at: req.body.created_at,
         });
         try {
