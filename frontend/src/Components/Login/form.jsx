@@ -23,7 +23,6 @@ const Form = ({setSigned, setUser}) => {
             user = JSON.parse(user)
             setUser(user)
             setSigned(true)
-            window.location.reload();
         }
     }, [])
     const handleSubmit = async (event) => {
@@ -43,10 +42,6 @@ const Form = ({setSigned, setUser}) => {
                 password: password
             }
             if(await createUser(data,setError)){
-                window.localStorage.setItem('user', JSON.stringify({
-                    username: data.username,
-                    email: data.email
-                }))
                 setIsThereIsError(false)
                 window.location.reload();
             }else{
@@ -65,7 +60,6 @@ const Form = ({setSigned, setUser}) => {
                 localStorage.setItem('user', JSON.stringify({ username: res.username, email: res.email }));
                 setUser({ username: res.username, email: res.email })
                 setIsThereIsError(false)
-                window.location.reload();
             }else{
                 setIsThereIsError(true)
             }
