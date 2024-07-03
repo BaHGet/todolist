@@ -28,10 +28,10 @@ const Login = ({ setUserName, setPassWord, setPage, handleSubmit, validated }) =
                 </Form.Group>
                 
                 <Form.Group className='d-flex justify-content-between' >
+                    <Button onClick={() => {setPage('signup')}}>or Sign Up</Button>
                     <Button variant="dark" type="submit" onClick={(e) => handleSubmit(e)} style={{backgroundColor: '#65737e'}}>
                         Submit
                     </Button>
-                    <Button onClick={() => {setPage('signup')}}>or Sign Up</Button>
                 </Form.Group>
             </Form>
         </div>

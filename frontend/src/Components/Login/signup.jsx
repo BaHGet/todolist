@@ -52,6 +52,7 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
                 </Form.Group>
 
                 <Form.Group className='d-flex justify-content-between' >
+                    <Button onClick={() => {setPage('login')}}>or Login</Button>
                     <Button 
                         className='text-light' 
                         type="submit" 
@@ -60,7 +61,6 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
                     >
                         {isLoading ? 'Loading…' : 'Submit'}
                     </Button>
-                    <Button onClick={() => {setPage('login')}}>or Login</Button>
                 </Form.Group>
             </Form>
         </div>

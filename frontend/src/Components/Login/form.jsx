@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Login from "./login";
 import TodoPage from "./../main/todosPage";
 import SignUp from "./signup";
-import { createUser, getUser } from "./../../userApi";
+// import { createUser, getUser } from "./../../userApi";
 
 
 const Form = ({setSigned, setUser}) => {
@@ -34,7 +34,8 @@ const Form = ({setSigned, setUser}) => {
         }
 
         setValidated(true);
-        setLoading(true)
+        console.log(userName, email, password)
+        /* setLoading(true)
         if(page === 'signup'){
             const data = {
                 username: userName,
@@ -67,7 +68,7 @@ const Form = ({setSigned, setUser}) => {
         }
         else{
             setLoading(false)
-        }
+        } */
     }
     
     return (
