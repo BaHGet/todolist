@@ -1,6 +1,6 @@
 [build]
-  functions = "backend/functions"
-  publish  = "backend/public"
+  functions = "/functions"
+  publish  = "/public"
 
 [dev]
   autoLaunch = false
