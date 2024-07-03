@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Login from "./login";
 import TodoPage from "./../main/todosPage";
 import SignUp from "./signup";
-// import { createUser, getUser } from "./../../userApi";
+import { createUser, getUser } from "./../../userApi";
 
 
 const Form = ({setSigned, setUser}) => {
@@ -34,8 +34,7 @@ const Form = ({setSigned, setUser}) => {
         }
 
         setValidated(true);
-        console.log(userName, email, password)
-        /* setLoading(true)
+        setLoading(true)
         if(page === 'signup'){
             const data = {
                 username: userName,
@@ -58,8 +57,8 @@ const Form = ({setSigned, setUser}) => {
             let res = await getUser(data,setError)
             if(res){
                 setSigned(true);
-                localStorage.setItem('user', JSON.stringify({ username: res.username, email: res.email }));
-                setUser({ username: res.username, email: res.email })
+                localStorage.setItem('user', JSON.stringify({ username: res.username, email: res.email, created_at: res.created_at }));
+                setUser({ username: res.username, email: res.email, created_at: res.created_at })
                 setIsThereIsError(false)
             }else{
                 setIsThereIsError(true)
@@ -67,8 +66,8 @@ const Form = ({setSigned, setUser}) => {
             setLoading(false)
         }
         else{
-            setLoading(false)
-        } */
+            setLoading(true)
+        }
     }
     
     return (
@@ -77,7 +76,14 @@ const Form = ({setSigned, setUser}) => {
             <>
                 {
                     page === 'login' ?
-                        <Login  setUserName={setUserName} setPassWord={setPassWord} setPage={setPage} handleSubmit={handleSubmit}  validated={validated} setValidated={setValidated}/> 
+                        <Login  
+                            setUserName={setUserName} 
+                            setPassWord={setPassWord} 
+                            setPage={setPage} 
+                            handleSubmit={handleSubmit}  
+                            validated={validated} 
+                            isLoading={isLoading}
+                        /> 
                     :
                         page === 'signup' ?
                             <SignUp  
