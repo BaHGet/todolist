@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Button, Card, ListGroup, Nav, Form} from 'react-bootstrap';
 import dayjs from 'dayjs'
 import relativeTime from "dayjs/plugin/relativeTime";
-import { deleteTodo, updateTodo } from '../../APIs/todosApi';
+import { updateTodo } from '../../APIs/todosApi';
 
 dayjs.extend(relativeTime);
 
-const Todo = ({index, todo}) => {
+const Todo = ({index, todo, handelDelete}) => {
 const [edit , setEdit] = useState(false)
 const [editTitle, setEditTitle] = useState(todo.title)
 const [editDescription, setEditDescription] = useState(todo.description)
@@ -25,10 +25,9 @@ const handelUpdate = async() => {
     setEditTitle('')
     setEditDescription('')
     setEditPraiority('')
+    window.location.reload()
 }
-const handelDelete = () => {
-    deleteTodo(todo.username, todo.title)
-}
+
 
     return (
         <div key={index}>
@@ -62,13 +61,13 @@ const handelDelete = () => {
                                 :
                                     <>
                                         <ListGroup.Item key={'description-'+index} className='text-break'>{todo.description}</ListGroup.Item>
-                                        <ListGroup.Item key={'priority-'+index}>Priority: </ListGroup.Item>
+                                        <ListGroup.Item key={'priority-'+index}>Priority: {todo.priority} </ListGroup.Item>
                                     </>
                         }
                         
                         <ListGroup.Item key={'buttons-'+index} className='d-flex justify-content-around align-items-center'>
                             <Button key={'done-'+index} variant={edit ? 'dark' : 'mute'} disabled={!edit} onClick={handelUpdate} size="sm">Done</Button>
-                            <Button key={'delete-'+index} variant="danger" onClick={handelDelete} size="sm">Delete</Button>
+                            <Button key={'delete-'+index} variant="danger" onClick={() => handelDelete(todo.username, todo.title)} size="sm">Delete</Button>
                         </ListGroup.Item>
                     </ListGroup>
                 </Card>

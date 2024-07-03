@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-const url = 'http://localhost:8888/.netlify/functions/api/todos'
+const url = 'https://todolist-great.netlify.app/.netlify/functions/api/todos'
 
 
 export const getTodos = async (user) => {
@@ -7,8 +7,7 @@ export const getTodos = async (user) => {
         {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                'mode': 'no-cors'
+                'Content-Type': 'application/json'
             },
         })  
     const res = await response.json()

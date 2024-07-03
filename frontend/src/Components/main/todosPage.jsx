@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getTodos } from "../../APIs/todosApi"
+import { getTodos, deleteTodo } from "../../APIs/todosApi"
 import "./todo-style.css"
 import Todo from "./todo"
 import NavDropdown from "./navDropdown"
@@ -23,6 +23,11 @@ const TodosPage = ({user, handelLogout}) => {
         })
     }, [])
 
+    const handelDelete = (username, title) => {
+        deleteTodo(username, title)
+        setTodos(todos.filter(todo => todo.title !== title))
+    }
+
     return (
         <>
             <div className="d-flex justify-content-center align-items-center" style={{backgroundColor: '#a7adba'}}>
@@ -36,7 +41,7 @@ const TodosPage = ({user, handelLogout}) => {
                         "d-flex flex-row flex-wrap justify-content-center align-items-center p-2 "
                 }>
                 {
-                    todos.map(todo => <Todo index={todo._id} todo={todo}/>)
+                    todos.map(todo => <Todo index={todo._id} todo={todo} handelDelete={handelDelete}/>)
                 }
             </div>
         </>
