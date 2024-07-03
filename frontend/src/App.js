@@ -17,12 +17,18 @@ const App = () => {
     }
   }, [])
   
+  const handelLogout = () => {
+    localStorage.removeItem('user')
+    setSigned(false)
+    setUser({})
+  }
+
   return (
     <Routes >
       <Route 
         path="/todolist/"
         element={
-          signed ? <TodosPage signed={signed} user={user} /> : <Form setUser={setUser} setSigned={setSigned} />
+          signed ? <TodosPage user={user} handelLogout={handelLogout} /> : <Form setUser={setUser} setSigned={setSigned} />
         }
       />
     </Routes>
