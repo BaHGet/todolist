@@ -81,7 +81,7 @@ test('handles login', () => {
         fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: 'testpassword' } });
     })
 
-    const button = screen.getByText(/Submit/i);  
+    const button = screen.getByText(/Login/i);  
     
     fireEvent.click(button);
 
@@ -137,7 +137,7 @@ test('displays error messages in login depanding on input', () => {
     );
     fireEvent.change(screen.getByPlaceholderText(/User Name/i), { target: { value: '' } });
     fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: '' } });
-    const button = screen.getByText(/Submit/i);  
+    const button = screen.getByText(/Login/i);  
     fireEvent.click(button);
 
     expect(screen.getByText(/Please choose a username./i)).toBeInTheDocument();
