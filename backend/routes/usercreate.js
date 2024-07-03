@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
             return res.status(400).json({ message: "Wrong Password" });
         }
         else{
-            return res.status(200).json({username: User.username, email: User.email});
+            return res.status(200).json({username: User.username, email: User.email, created_at: User.created_at});
         }
     } catch (error) {
         res.status(400).send({message: error.message});
