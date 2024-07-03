@@ -37,7 +37,7 @@ const Form = ({setSigned, setUser}) => {
         setLoading(true)
         if(page === 'signup'){
             const data = {
-                username: userName,
+                username: userName.toLowerCase(),
                 email: email,
                 password: password
             }
@@ -51,7 +51,7 @@ const Form = ({setSigned, setUser}) => {
         }
         else if(page === 'login'){
             const data = {
-                username: userName,
+                username: userName.toLowerCase(),
                 password: password
             }
             let res = await getUser(data,setError)
