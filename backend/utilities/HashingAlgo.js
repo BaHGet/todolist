@@ -1,4 +1,4 @@
-import { hash, compare } from 'bcryptjs';
+const { hash, compare } = ('bcryptjs');
 
 const Hashing = async (password) => {
     try {
@@ -24,7 +24,7 @@ const compareing = async (password, hashedPassword) => {
 
 data(); */
 
-export default {
+module.exports = {
     Hashing,
     compareing
 };
