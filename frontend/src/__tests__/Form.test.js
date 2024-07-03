@@ -1,40 +1,110 @@
 import { render, screen, fireEvent, waitForElement, act  } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import Form from '../Components/Login/form';
-import { MemoryRouter } from 'react-router-dom';
+import Login from '../Components/Login/login';
+import SignUp from '../Components/Login/signup'; 
 
-const setSignedMock = jest.fn();
-const setUserMock = jest.fn();
+const setUserNameMock = jest.fn();
+const setEmailMock = jest.fn();
+const setPassWordMock = jest.fn();
+const setPageMock = jest.fn();
+let validatedMock = false;
+const setValidatedMock = () => {validatedMock != validatedMock};
+const isLoadingMock = false;
+
 
 test('renders login form', () => { 
 
     render (
-        <Form setSigned={setSignedMock} setUser={setUserMock}/>
-    )
-    const header = screen.getByText(/Todo List/i)
+        <Login
+            setUserName={setUserNameMock}
+            setEmail={setEmailMock}
+            setPassWord={setPassWordMock} 
+            setPage={setPageMock} 
+            handleSubmit={(e) => {
+
+            }}
+            validated={validatedMock}
+            setValidated={setValidatedMock}
+            isLoading={isLoadingMock}
+        />
+    );
     const loginField = screen.getAllByPlaceholderText(/User Name/i)
     const signupField = screen.getAllByPlaceholderText(/Password/i)
-    expect(header).toBeInTheDocument();
     expect(loginField[0]).toBeInTheDocument();
     expect(signupField[0]).toBeInTheDocument();
     
 })
 
+test('renders signup form', () => {
+
+    render (
+        <SignUp
+            setUserName={setUserNameMock}
+            setEmail={setEmailMock}
+            setPassWord={setPassWordMock} 
+            setPage={setPageMock} 
+            handleSubmit={(e) => {
+
+            }}
+            validated={validatedMock}
+            setValidated={setValidatedMock}
+            isLoading={isLoadingMock}
+        />
+    );
+
+    expect(screen.getByPlaceholderText(/User Name/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Password/i)).toBeInTheDocument();
+
+})
+
 test('handles login', () => {
+    const logSpy = jest.spyOn(console, 'log');
+    render(
+        <Login 
+            setUserName={setUserNameMock}
+            setEmail={setEmailMock}
+            setPassWord={setPassWordMock} 
+            setPage={setPageMock} 
+            handleSubmit={(e) => {
+                e.preventDefault();
+                console.log("testuser", "testpassword")
+            }}
+            validated={true}
+            setValidated={() => {}}
+            isLoading={false}
+        />
+    );
+
+    act(() => {
+        fireEvent.change(screen.getByPlaceholderText(/User Name/i), { target: { value: 'testuser' } });
+        fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: 'testpassword' } });
+    })
+
+    const button = screen.getByText(/Submit/i);  
     
-    render(<Form setSigned={setSignedMock} setUser={setUserMock} />);
+    fireEvent.click(button);
 
-    fireEvent.change(screen.getByPlaceholderText(/User Name/i), { target: { value: 'testuser' } });
-    fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: 'testpassword' } });
-
-    fireEvent.submit(screen.getByText('Submit'));
+    expect(logSpy).toHaveBeenCalledWith("testuser", "testpassword");
 })
 
 test('handles signup', () => {
-    const logSpy = jest.spyOn(console, 'log');
-    render(<Form setSigned={setSignedMock} setUser={setUserMock} />);
-
-    fireEvent.click(screen.getByText(/or Sign Up/i));
+    const logSpy = jest.spyOn(global.console, 'log');
+    render(
+        <SignUp 
+            setUserName={setUserNameMock}
+            setEmail={setEmailMock}
+            setPassWord={setPassWordMock} 
+            setPage={setPageMock} 
+            handleSubmit={(e) => {
+                e.preventDefault();
+                console.log("newuser", "newuser@example.com", "newpassword")
+            }}
+            validated={true}
+            setValidated={() => {}}
+            isLoading={false}
+        />
+    );
 
     act(() => {
         fireEvent.change(screen.getByPlaceholderText(/User Name/i), { target: { value: 'newuser' } });
@@ -45,82 +115,60 @@ test('handles signup', () => {
     const button = screen.getByText(/Submit/i);  
 
     fireEvent.click(button);
+
     expect(logSpy).toHaveBeenCalledWith("newuser", "newuser@example.com", "newpassword");
 })
 
+test('displays error messages in login depanding on input', () => {
 
-/* 
+    render(
+        <Login 
+            setUserName={setUserNameMock}
+            setEmail={setEmailMock}
+            setPassWord={setPassWordMock} 
+            setPage={setPageMock} 
+            handleSubmit={(e) => {
 
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom'
-import Form from '../Components/Login/form';
+            }}
+            validated={validatedMock}
+            setValidated={setValidatedMock}
+            isLoading={isLoadingMock}
+        />
+    );
+    fireEvent.change(screen.getByPlaceholderText(/User Name/i), { target: { value: '' } });
+    fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: '' } });
+    const button = screen.getByText(/Submit/i);  
+    fireEvent.click(button);
 
-describe('Form Component', () => {
-    const setSignedMock = jest.fn();
-    const setUserMock = jest.fn();
+    expect(screen.getByText(/Please choose a username./i)).toBeInTheDocument();
+    expect(screen.getByText(/Please choose a password./i)).toBeInTheDocument();
+})
 
-    beforeEach(() => {
-        // Clear all mocks before each test
-        jest.clearAllMocks();
-        localStorage.clear();
-    });
+test('displays error messages in singup depanding on input', () => {
 
-    test('renders login form initially', () => {
-        render(<Form setSigned={setSignedMock} setUser={setUserMock} />);
-        expect(screen.getByText(/Todo List/i)).toBeInTheDocument();
-        expect(screen.getByPlaceholderText(/username/i)).toBeInTheDocument();
-        expect(screen.getByPlaceholderText(/password/i)).toBeInTheDocument();
-    });
+    render(
+        <SignUp 
+            setUserName={setUserNameMock}
+            setEmail={setEmailMock}
+            setPassWord={setPassWordMock} 
+            setPage={setPageMock} 
+            handleSubmit={(e) => {
 
-    test('handles login', async () => {
-        getUser.mockResolvedValue({ username: 'testuser', email: 'testuser@example.com' });
+            }}
+            validated={validatedMock}
+            setValidated={setValidatedMock}
+            isLoading={isLoadingMock}
+        />
+    );
 
-        render(<Form setSigned={setSignedMock} setUser={setUserMock} />);
+    fireEvent.change(screen.getByPlaceholderText(/User Name/i), { target: { value: '' } });
+    fireEvent.change(screen.getByPlaceholderText(/Email/i), { target: { value: 'newuser' } });
+    fireEvent.change(screen.getByPlaceholderText(/Password/i), { target: { value: '' } });
+    const button = screen.getByText(/Submit/i);  
+    fireEvent.click(button);
 
-        fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'testuser' } });
-        fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: 'testpassword' } });
-
-        fireEvent.submit(screen.getByRole('button', { name: /login/i }));
-
-        await waitFor(() => expect(setSignedMock).toHaveBeenCalledWith(true));
-        await waitFor(() => expect(setUserMock).toHaveBeenCalledWith({ username: 'testuser', email: 'testuser@example.com' }));
-        expect(localStorage.getItem('user')).toEqual(JSON.stringify({ username: 'testuser', email: 'testuser@example.com' }));
-    });
-
-    test('handles signup', async () => {
-        createUser.mockResolvedValue(true);
-
-        render(<Form setSigned={setSignedMock} setUser={setUserMock} />);
-
-        fireEvent.click(screen.getByText(/signup/i));
-
-        fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'newuser' } });
-        fireEvent.change(screen.getByPlaceholderText(/email/i), { target: { value: 'newuser@example.com' } });
-        fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: 'newpassword' } });
-
-        fireEvent.submit(screen.getByRole('button', { name: /signup/i }));
-
-        await waitFor(() => expect(createUser).toHaveBeenCalledWith({
-            username: 'newuser',
-            email: 'newuser@example.com',
-            password: 'newpassword'
-        }, expect.any(Function)));
-    }); 
-
-    test('displays error message on login failure', async () => {
-        getUser.mockResolvedValue(null);
-
-        render(<Form setSigned={setSignedMock} setUser={setUserMock} />);
-
-        fireEvent.change(screen.getByPlaceholderText(/username/i), { target: { value: 'invaliduser' } });
-        fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: 'invalidpassword' } });
-
-        fireEvent.submit(screen.getByRole('button', { name: /login/i }));
-
-        await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
-    }); 
-});
-
-*/
+    expect(screen.getByText(/Please choose a username./i)).toBeInTheDocument();
+    expect(screen.getByText(/Please choose a email./i)).toBeInTheDocument();
+    expect(screen.getByText(/Please choose a password./i)).toBeInTheDocument();
+})
 
