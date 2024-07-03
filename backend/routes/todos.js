@@ -24,4 +24,16 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/", async (req, res) => {
+    const username = req.query.username;
+    try {
+        const UserTodos = await todos.find({ username: username.toLowerCase() });
+        if (!UserTodos) {
+            return res.status(400).json({ message: "User not found" });
+        }
+        return res.status(200).json(UserTodos);
+    } catch (error) {
+        res.status(400).send({message: error.message});
+    }
+});
 module.exports = router
