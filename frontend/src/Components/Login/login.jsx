@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-const Login = ({ setUserName, setPassWord, setPage, handleSubmit, validated }) => {
+const Login = ({ setUserName, setPassWord, setPage, handleSubmit, validated, isLoading }) => {
     const [Check, setChecked] = useState(false);
     
     return (
@@ -30,7 +30,7 @@ const Login = ({ setUserName, setPassWord, setPage, handleSubmit, validated }) =
                 <Form.Group className='d-flex justify-content-between' >
                     <Button onClick={() => {setPage('signup')}}>or Sign Up</Button>
                     <Button variant="dark" type="submit" onClick={(e) => handleSubmit(e)} style={{backgroundColor: '#65737e'}}>
-                        Submit
+                        {!isLoading ? 'Login' : 'Loading...'}
                     </Button>
                 </Form.Group>
             </Form>
