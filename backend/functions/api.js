@@ -21,6 +21,12 @@ app.use(
     })
 );
 
+const router = express.Router();
+router.options("/", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.sendStatus(200);
+});
+
 
 
 mongoose.pluralize(null);
