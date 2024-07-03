@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getTodos } from "../../todosApi"
+import { getTodos } from "../../APIs/todosApi"
 import Todo from "./todo"
 import NavDropdown from "./navDropdown"
 
@@ -12,7 +12,7 @@ const TodosPage = ({user, handelLogout}) => {
             setTodos(res)
         })
     }, [])
-    
+
     return (
         <>
             <div className="d-flex justify-content-center align-items-center p-2" style={{backgroundColor: '#a7adba'}}>

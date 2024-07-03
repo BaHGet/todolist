@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Login from "./login";
 import TodoPage from "./../main/todosPage";
 import SignUp from "./signup";
-import { createUser, getUser } from "./../../userApi";
+import { createUser, getUser } from "../../APIs/userApi";
 
 
 const Form = ({setSigned, setUser}) => {
