@@ -22,7 +22,7 @@ body{
     margin-top: 10px;
 }
 .head-line{
-    width: 30vh;
+    width: 40vh;
     height: fit-content;
     padding: 20px;
     text-align: center;
@@ -37,8 +37,32 @@ body{
     padding: 20px;
 }
 
-@media screen and (max-width: 500px) {
-    .form-container {
-        /* margin: 30vh auto */
+.dropdown-menu{
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    margin-bottom: 100px !important;
+    animation: fadeInAnimation .2s ease-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
     }
+    
+    100% {
+        opacity: 1;
+    }
+}
+
+.dropdown-item:hover{
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+@media screen and (max-width: 500px) {
 }
