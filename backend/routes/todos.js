@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
         username: req.body.username,
         title: req.body.title,
         description: req.body.description,
-        created_at: req.body.created_at,
+        priority: req.body.priority
     });
     try {
         let exist = await user.findOne({ username: req.body.username });
@@ -40,7 +40,8 @@ router.get("/", async (req, res) => {
 router.put("/", async (req, res) => {
     
     try {
-        let exist = await user.findOne({ username: req.body.username });
+        console.log(req.body)
+        let exist = await todos.findOne({ username: req.body.username.toLowerCase() });
         if (exist != null) {
             let todo = await todos.findOne({ username: req.body.username, title: req.body.title });
             if (todo) {
@@ -71,7 +72,7 @@ router.delete("/", async (req, res) => {
         if (exist != null) {
             let todo = await todos.findOne({ username: req.body.username, title: req.body.title });
             if (todo) {
-                const dataToSave = await todo.remove();
+                const dataToSave = await todo.delete();
                 return res.status(200).json({message: "Todo deleted",dataToSave});
             }else{
                 return res.status(400).json({ message: "Todo Not Found" });
