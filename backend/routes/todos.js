@@ -3,6 +3,12 @@ const router = express.Router();
 const todos = require("../models/todosSchema");
 const user = require("../models/user");
 
+
+router.options("/", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.sendStatus(200);
+});
+
 router.post("/", async (req, res) => {
     const data = new todos({
         username: req.body.username,
@@ -72,7 +78,7 @@ router.delete("/", async (req, res) => {
         if (exist != null) {
             let todo = await todos.findOne({ username: req.body.username, title: req.body.title });
             if (todo) {
-                const dataToSave = await todo.delete();
+                const dataToSave = await todo.deleteOne();
                 return res.status(200).json({message: "Todo deleted",dataToSave});
             }else{
                 return res.status(400).json({ message: "Todo Not Found" });
