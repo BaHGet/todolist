@@ -28,22 +28,13 @@ const todosSchema = new mongoose.Schema({
         type: String,
         default : now,
         required: false,
+    },
+    "due_date":{
+        type: String,
+        required: true,
     }
 });
 
 
 
 module.exports = mongoose.model("todos", todosSchema)
-
-/*
-        "tasks": [
-            {
-                "title": String,
-                // "description": String,
-                // "due_date": Date,
-                // "priority": String,
-                // "status": String,
-                "created_at": Date.now()
-            }
-        ] 
-    */
