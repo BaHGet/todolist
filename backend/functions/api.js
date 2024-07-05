@@ -27,7 +27,6 @@ router.options("/", (req, res) => {
 });
 
 
-
 mongoose.pluralize(null);
 
 const userRouter = require("../routes/usercreate");
