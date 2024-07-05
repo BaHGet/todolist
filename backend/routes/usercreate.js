@@ -3,15 +3,10 @@ const router = express.Router();
 const user = require("../models/user");
 const { Hashing, compareing } = require("../utilities/HashingAlgo");
 
-/* 
-user:{
-    username: String,
-    email: String,
-    password: String,
-    created_at: Date
-} 
-*/
-
+router.options("/", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    return res.status(200).json({message: "OK"});
+});
 
 router.get("/", async (req, res) => {
     const username = req.query.username;
