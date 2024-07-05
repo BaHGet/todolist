@@ -71,7 +71,7 @@ const handelUpdate = async() => {
                         
                         <ListGroup.Item key={'buttons-'+index} className='d-flex justify-content-around align-items-center'>
                             <Button key={'done-'+index} variant={edit ? 'dark' : 'mute'} disabled={!edit} onClick={handelUpdate} size="sm">Done</Button>
-                            <Button key={'delete-'+index} variant="danger" onClick={() => handelDelete(todo.username, todo.title)} size="sm">Delete</Button>
+                            <Button key={'delete-'+index} data-testid="delete" variant="danger" onClick={() => handelDelete(todo.username, todo.title)} size="sm">Delete</Button>
                         </ListGroup.Item>
                     </ListGroup>
                 </Card>
