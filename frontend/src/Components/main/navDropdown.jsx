@@ -22,7 +22,7 @@ const NavDropdown = ({user, handelLogout}) => {
                 Account
             </Dropdown.Toggle>
             <Dropdown.Menu >
-                <Dropdown.ItemText className="text-white">User Name: {user.username}</Dropdown.ItemText>
+                <Dropdown.ItemText className="text-white">Username: {user.username}</Dropdown.ItemText>
                 <Dropdown.ItemText  className="text-white">Email: {user.email}</Dropdown.ItemText>
                 <Dropdown.Item  className="text-white">
                     Mamber from {dayjs(user.created_at).format("YY-MM-DD HH:mm:ss")} ({dayjs(user.created_at).fromNow("YY-MM-DD")})
