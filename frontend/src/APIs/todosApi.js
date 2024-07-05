@@ -1,4 +1,3 @@
-import queryString from 'query-string';
 const url = 'https://todolist-great.netlify.app/.netlify/functions/api/todos'
 
 
@@ -19,6 +18,8 @@ export const createTodo = async (data) => {
         username: data.username,
         title: data.title,
         description: data.description,
+        priority: data.priority,
+        due_date: data.dueDate
     }
     const response = await fetch(url,
         {
@@ -33,13 +34,14 @@ export const createTodo = async (data) => {
     return res
 }
 
-export const updateTodo = async (username, title, newTitle, newdDescription, newPriority) => {
+export const updateTodo = async (username, title, newTitle, newdDescription, newPriority, newDueDate) => {
     let santData = {
         username: username,
         title: title,
-        newTitle: newTitle,
+        newTitle: newTitle || '',
         newdDescription: newdDescription,
-        newPriority: newPriority
+        newPriority: newPriority || '',
+        newDueDate: newDueDate || ''
     }
     const response = await fetch(url,
         {

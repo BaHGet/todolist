@@ -10,24 +10,26 @@ const Todo = ({index, todo, handelDelete}) => {
 const [edit , setEdit] = useState(false)
 const [editTitle, setEditTitle] = useState(todo.title)
 const [editDescription, setEditDescription] = useState(todo.description)
-const [editPraiority, setEditPraiority] = useState(todo.status) 
+const [editPraiority, setEditPraiority] = useState(todo.priority) 
+const [editDueDate, setEditDueDate] = useState(todo.due_date);
 
 const handelEdit = (bool) => {
     setEdit(bool)
     setEditTitle(todo.title)
     setEditDescription(todo.description)
-    setEditPraiority(todo.status)
+    setEditPraiority(todo.priority)
+    setEditDueDate(todo.due_date)
 }
 
 const handelUpdate = async() => {
-    handelEdit(false)
-    await updateTodo(todo.username, todo.title,editTitle, editDescription, editPraiority)
+    await updateTodo(todo.username, todo.title, editTitle, editDescription, editPraiority, editDueDate)
+    console.log(todo.username, todo.title, editTitle, editDescription, editPraiority, editDueDate)
     setEditTitle('')
     setEditDescription('')
     setEditPraiority('')
+    setEditDueDate('')
     window.location.reload()
 }
-
 
     return (
         <div key={index}>
@@ -57,11 +59,13 @@ const handelUpdate = async() => {
                                     <>
                                         <Form.Control size="sm" className='' type="text" placeholder="new description" onChange={(e) => setEditDescription(e.target.value)}  /> 
                                         <Form.Control size="sm" className='my-1' type="text" placeholder='praiority' onChange={(e) => setEditPraiority(e.target.value)}  /> 
+                                        <input type="datetime-local"  onChange={(e) => setEditDueDate(e.target.value)}  />
                                     </>
                                 :
                                     <>
                                         <ListGroup.Item key={'description-'+index} className='text-break'>{todo.description}</ListGroup.Item>
                                         <ListGroup.Item key={'priority-'+index}>Priority: {todo.priority} </ListGroup.Item>
+                                        <ListGroup.Item key={'due_date-'+index}>Due Date: {dayjs(todo.due_date).format('YY-MM-DD HH:mm')} </ListGroup.Item>
                                     </>
                         }
                         
