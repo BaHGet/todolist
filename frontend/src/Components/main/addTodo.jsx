@@ -9,14 +9,14 @@ const AddTodo = ({username}) => {
     const [dueDate , setDueDate] = useState('');
     const [validated, setValidated] = useState(false);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
         setValidated(true);
-        createTodo({username,title, description, priority, dueDate}).then(res => { console.log(res)})
+        await createTodo({username,title, description, priority, dueDate}).then(res => { console.log(res)})
         window.location.reload();
     };
     return (
@@ -47,12 +47,12 @@ const AddTodo = ({username}) => {
             </FloatingLabel>
             <Form.Group label="Add Due Date" className="mb-3 w-100 text-dark">
                 <Form.Label>Due Date:  </Form.Label>
-                <input required type="datetime-local"  onChange={(e) => setDueDate(e.target.value)}/>
+                <input placeholder="Due Date" required type="datetime-local"  onChange={(e) => setDueDate(e.target.value)}/>
                 <Form.Control.Feedback type="invalid">
                     Please type a Due Date.
                 </Form.Control.Feedback>
             </Form.Group>
-            <Button variant="dark" type="submit" onClick={(e) => { handleSubmit(e) }}>Add</Button>
+            <Button variant="dark" data-testid="submit" type="submit" onClick={(e) => { handleSubmit(e) }}>Add</Button>
         </Form>
     )
 }
