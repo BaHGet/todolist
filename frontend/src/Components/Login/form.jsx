@@ -36,34 +36,42 @@ const Form = ({setSigned, setUser}) => {
         setValidated(true);
         setLoading(true)
         if(page === 'signup'){
-            const data = {
-                username: userName.toLowerCase(),
-                email: email,
-                password: password
-            }
-            if(await createUser(data,setError)){
-                setIsThereIsError(false)
-                window.location.reload();
+            if(userName && email && password ){
+                const data = {
+                    username: userName.toLowerCase(),
+                    email: email,
+                    password: password
+                }
+                if(await createUser(data,setError)){
+                    setIsThereIsError(false)
+                    window.location.reload();
+                }else{
+                    setIsThereIsError(true)
+                }
+                setLoading(false)
             }else{
-                setIsThereIsError(true)
+                setLoading(false)
             }
-            setLoading(false)
         }
         else if(page === 'login'){
-            const data = {
-                username: userName.toLowerCase(),
-                password: password
-            }
-            let res = await getUser(data,setError)
-            if(res){
-                setSigned(true);
-                localStorage.setItem('user', JSON.stringify({ username: res.username, email: res.email, created_at: res.created_at }));
-                setUser({ username: res.username, email: res.email, created_at: res.created_at })
-                setIsThereIsError(false)
+            if(userName && password ){
+                const data = {
+                    username: userName.toLowerCase(),
+                    password: password
+                }
+                let res = await getUser(data,setError)
+                if(res){
+                    setSigned(true);
+                    localStorage.setItem('user', JSON.stringify({ username: res.username, email: res.email, created_at: res.created_at }));
+                    setUser({ username: res.username, email: res.email, created_at: res.created_at })
+                    setIsThereIsError(false)
+                }else{
+                    setIsThereIsError(true)
+                }
+                setLoading(false)
             }else{
-                setIsThereIsError(true)
+                setLoading(false)
             }
-            setLoading(false)
         }
         else{
             setLoading(true)
