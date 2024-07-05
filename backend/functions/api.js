@@ -6,7 +6,7 @@ const app = express();
 const mongoose = require("mongoose");
 
 mongoose.connect(
-    `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.had7mus.mongodb.net/todolist`
+    `mongodb+srv://abosama150:${process.env.PASSWORD}@cluster0.had7mus.mongodb.net/todolist`
 );
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
