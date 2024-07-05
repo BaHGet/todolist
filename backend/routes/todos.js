@@ -6,7 +6,7 @@ const user = require("../models/user");
 
 router.options("/", (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.sendStatus(200);
+    return res.status(200).json({message: "OK"});
 });
 
 router.post("/", async (req, res) => {
@@ -14,7 +14,8 @@ router.post("/", async (req, res) => {
         username: req.body.username,
         title: req.body.title,
         description: req.body.description,
-        priority: req.body.priority
+        priority: req.body.priority,
+        due_date: req.body.due_date
     });
     try {
         let exist = await user.findOne({ username: req.body.username });
@@ -54,6 +55,7 @@ router.put("/", async (req, res) => {
                 todo.title = req.body.newTitle
                 todo.description = req.body.newdDescription
                 todo.priority = req.body.newPriority
+                todo.due_date = req.body.newDueDate
                 const dataToSave = await todo.save();
                 return res.status(200).json({message: "Todo updated",dataToSave});
             }else{
