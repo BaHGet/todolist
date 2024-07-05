@@ -32,16 +32,16 @@ const handelUpdate = async() => {
     return (
         <div key={index}>
                 <Card key={'card-'+index} style={{ width: '20rem', margin: '5px', backgroundColor: '#c0c5ce', color: '#4f5b66'}}>
-                <Card.Header style={{backgroundColor: '#a7adba'}}>
-                    <Nav variant="tabs" defaultActiveKey="#todo">
-                        <Nav.Item>
-                            <Nav.Link href="#todo" className='text-dark' onClick={() => handelEdit(false)}>Active</Nav.Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Nav.Link href="#edit" className='text-dark' onClick={() =>handelEdit(true)}>Edit</Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-                </Card.Header>
+                    <Card.Header style={{backgroundColor: '#a7adba'}}>
+                        <Nav variant="tabs" defaultActiveKey="#todo">
+                            <Nav.Item>
+                                <Nav.Link href="#todo" className='text-dark' onClick={() => handelEdit(false)}>Active</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link href="#edit" className='text-dark' onClick={() =>handelEdit(true)}>Edit</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                    </Card.Header>
                     <Card.Body key={'card-body-' + index}>
                         {
                             edit ?
