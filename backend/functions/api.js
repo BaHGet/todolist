@@ -1,5 +1,4 @@
-const env = require("dotenv");
-env.config();
+require('dotenv').config()
 const cors = require("cors")
 const express = require("express");
 const serverless = require("serverless-http");
@@ -7,7 +6,7 @@ const app = express();
 const mongoose = require("mongoose");
 
 mongoose.connect(
-    `mongodb+srv://${process.env.USER }:${process.env.PASSWORD}@cluster0.had7mus.mongodb.net/todolist`
+    `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.had7mus.mongodb.net/todolist`
 );
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
@@ -24,7 +23,7 @@ app.use(
 const router = express.Router();
 router.options("/", (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.sendStatus(200);
+    return res.status(200).json({message: "OK"});
 });
 
 
