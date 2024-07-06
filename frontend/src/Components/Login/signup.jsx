@@ -3,7 +3,7 @@ import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, validated, setValidated, isLoading }) => {
+const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, validated, setValidated, isLoading, setIsThereIsError }) => {
     const [Check, setChecked] = useState(false);
     useEffect(() => {
         setValidated(false)
@@ -18,7 +18,7 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
                     label="User Name"
                     className="mb-3 w-100 text-dark"
                 >
-                    <Form.Control required type="name" placeholder="Enter User Name" onChange={(e) => setUserName(e.target.value)}/>
+                    <Form.Control required id="username" type="name" name="username" placeholder="Enter User Name" autoComplete='on' onChange={(e) => setUserName(e.target.value)}/>
                     <Form.Control.Feedback type="invalid">
                         Please choose a username.
                     </Form.Control.Feedback>
@@ -30,7 +30,7 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
                     label="Email"
                     className="mb-3 w-100 text-dark"
                 >
-                    <Form.Control required type="email" placeholder="Enter Your Email" onChange={(e) => setEmail(e.target.value)}/>
+                    <Form.Control required type="email" name="email" placeholder="Enter Your Email" autoComplete='on' onChange={(e) => setEmail(e.target.value)}/>
                     <Form.Control.Feedback type="invalid">
                         Please choose a email.
                     </Form.Control.Feedback>
@@ -41,18 +41,25 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
                     label="Password"
                     className="mb-3 w-100 text-dark"
                 >
-                    <Form.Control required type={Check ? "text" : "password"} placeholder="Password"  autoComplete="off" onChange={(e) => setPassWord(e.target.value)}/>
+                    <Form.Control required type={Check ? "text" : "password"} name="password" placeholder="Password"  autoComplete="off" onChange={(e) => setPassWord(e.target.value)}/>
                     <Form.Control.Feedback type="invalid">
                         Please choose a password.
                     </Form.Control.Feedback>
                 </FloatingLabel>
 
                 <Form.Group className="mb-3" controlid="formBasicCheckbox">
-                    <Form.Check  type="checkbox" label="Show Password"  onClick={(e) => {setChecked(e.target.checked)} } />
+                    <Form.Check name="checkbox" type="checkbox" label="Show Password"  onClick={(e) => {setChecked(e.target.checked)} } />
                 </Form.Group>
 
                 <Form.Group className='d-flex justify-content-between' >
-                    <Button onClick={() => {setPage('login')}}>or Login</Button>
+                    <Button onClick={() => {
+                            setIsThereIsError(false);
+                            setUserName('');
+                            setEmail('');
+                            setPassWord('');
+                            setPage('login')
+                        }
+                    }>or Login</Button>
                     <Button 
                         className='text-light' 
                         type="submit" 
