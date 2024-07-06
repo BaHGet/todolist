@@ -32,7 +32,6 @@ const Form = ({setSigned, setUser}) => {
             event.preventDefault();
             event.stopPropagation();
         }
-
         setValidated(true);
         setLoading(true)
         if(page === 'signup'){
@@ -42,19 +41,27 @@ const Form = ({setSigned, setUser}) => {
                     email: email,
                     password: password
                 }
-                if(await createUser(data,setError)){
-                    setIsThereIsError(false)
-                    window.location.reload();
+                await getUser(data,setError)
+                if(error === 'Wrong Password'){
+                    if(await createUser(data,setError)){
+                        setIsThereIsError(false)
+                        window.location.reload();
+                    }else{
+                        setIsThereIsError(true)
+                    }
                 }else{
                     setIsThereIsError(true)
+                    setError("Username already exists");
+                    setValidated(false);
                 }
+                
                 setLoading(false)
             }else{
                 setLoading(false)
             }
         }
         else if(page === 'login'){
-            if(userName && password ){
+            if(userName.length > 0 && password.length > 0){
                 const data = {
                     username: userName.toLowerCase(),
                     password: password
@@ -67,6 +74,7 @@ const Form = ({setSigned, setUser}) => {
                     setIsThereIsError(false)
                 }else{
                     setIsThereIsError(true)
+                    setValidated(false);
                 }
                 setLoading(false)
             }else{
@@ -91,6 +99,7 @@ const Form = ({setSigned, setUser}) => {
                             handleSubmit={handleSubmit}  
                             validated={validated} 
                             isLoading={isLoading}
+                            setIsThereIsError={setIsThereIsError}
                         /> 
                     :
                         page === 'signup' ?
@@ -103,6 +112,7 @@ const Form = ({setSigned, setUser}) => {
                                 validated={validated} 
                                 setValidated={setValidated}
                                 isLoading={isLoading}
+                                setIsThereIsError={setIsThereIsError}
                             />
                         :
                             <TodoPage />
@@ -115,10 +125,9 @@ const Form = ({setSigned, setUser}) => {
                             <h5>
                                 {error.match(/message/g) ? error : 
                                     `There is an error with 
-                                        ${error.match(/password_hash/g) ? 'Password' : error.match(/email/g) ? 'Email' : 'User Name'},
-                                    Please contact support`}
+                                        ${error.match(/password_hash/g) || error.match(/password/g) ? 'Password' : error.match(/email/g) ? 'Email' : 'Username'},
+                                    ${error}`}
                             </h5>
-                            
                         </div>
                     : ''
                 }
