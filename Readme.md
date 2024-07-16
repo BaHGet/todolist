@@ -58,7 +58,7 @@
 
 > - **get** method for getting user todos
 > > - accept a `username` from the req query and find all of the user's todos with that username 
-> > - Question: why we used the requset body to send the username instead of the requset query ?
+> > - Question: why we used the requset query to send the username instead of the requset body ?
 
 > [!TIP]
 you can use a mongoose method called `find` to achieve this approach, [Query.prototype.find()](https://mongoosejs.com/docs/api/query.html#Query.prototype.find())
