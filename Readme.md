@@ -8,6 +8,7 @@
 - `password`
 > [!IMPORTANT]
 > a password should be **hashed** and store the ***hashed password*** in Db
+
 > [!TIP]
 > you can use a npm [library](https://www.npmjs.com/package/bcryptjs) called `bcryptjs` for hashing the password, a npm [library](https://www.npmjs.com/package/mongoose) called `mongoose` to connect to a [MonogoDb](https://www.mongodb.com/lp/cloud/atlas/try4?utm_content=controlhterms&utm_source=google&utm_campaign=search_gs_pl_evergreen_atlas_core_prosp-brand_gic-null_emea-eg_ps-all_desktop_eng_lead&utm_term=mongodb&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=12212624392&adgroup=115749716783&cq_cmp=12212624392&gad_source=1&gclid=EAIaIQobChMIzuqlztKrhwMVyZpoCR0AOgfhEAAYASAAEgLEC_D_BwE)  
 - `created_at`
