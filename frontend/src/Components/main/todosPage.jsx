@@ -6,12 +6,14 @@ import "./todo-style.css"
 import Todo from "./todo"
 import NavDropdown from "./navDropdown"
 import AddTodo from "./addTodo";
+import { useWindowResize } from "../../hooks/useWindowResize";
 
 
 const TodosPage = ({user, handelLogout}) => {
     const [todos, setTodos] = useState([]);
     const [width, setWidth] = useState(window.outerWidth);
     const [currentWindow, setCurrentWindow] = useState("todos");
+    useWindowResize({width, setWidth});
 
     useEffect(() => {
         getTodos(user.username).then(res => {
@@ -24,15 +26,8 @@ const TodosPage = ({user, handelLogout}) => {
             }
             
         })
-    }, [])
+    }, [currentWindow])
 
-    useEffect(() => {
-        const handleWindowResize = () => setWidth(window.outerWidth);
-        window.addEventListener("resize", handleWindowResize);
-        return () => {
-            window.removeEventListener("resize", handleWindowResize);
-        };
-    }, [width]);
 
     
 
@@ -44,6 +39,7 @@ const TodosPage = ({user, handelLogout}) => {
             setTodos(todos.filter(todo => todo.title !== title))
         }
     }
+
     return (
         <>
             <div className="d-flex justify-content-center align-items-center p-2 rounded" style={{backgroundColor: '#a7adba'}}>
