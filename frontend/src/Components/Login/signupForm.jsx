@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useUserUpdateContext } from '../../hooks/useUser';
 
-const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, validated, setValidated, isLoading, setIsThereIsError }) => {
+const SignupForm = ({setPage, handleSubmit, validated, setValidated, isLoading, setIsThereIsError }) => {
     const [Check, setChecked] = useState(false);
+    const userUpdate = useUserUpdateContext();
     useEffect(() => {
         setValidated(false)
     }, [])
@@ -18,7 +20,7 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
                     label="User Name"
                     className="mb-3 w-100 text-dark"
                 >
-                    <Form.Control required id="username" type="name" name="username" placeholder="Enter User Name" autoComplete='on' onChange={(e) => setUserName(e.target.value)}/>
+                    <Form.Control required id="username" type="name" name="username" placeholder="Enter User Name" autoComplete='on' onChange={(e) => userUpdate.updateUsername(e.target.value)}/>
                     <Form.Control.Feedback type="invalid">
                         Please choose a username.
                     </Form.Control.Feedback>
@@ -30,7 +32,7 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
                     label="Email"
                     className="mb-3 w-100 text-dark"
                 >
-                    <Form.Control required type="email" name="email" placeholder="Enter Your Email" autoComplete='on' onChange={(e) => setEmail(e.target.value)}/>
+                    <Form.Control required type="email" name="email" placeholder="Enter Your Email" autoComplete='on' onChange={(e) => userUpdate.updateEmail(e.target.value)}/>
                     <Form.Control.Feedback type="invalid">
                         Please choose a email.
                     </Form.Control.Feedback>
@@ -41,7 +43,7 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
                     label="Password"
                     className="mb-3 w-100 text-dark"
                 >
-                    <Form.Control required type={Check ? "text" : "password"} name="password" placeholder="Password"  autoComplete="off" onChange={(e) => setPassWord(e.target.value)}/>
+                    <Form.Control required type={Check ? "text" : "password"} name="password" placeholder="Password"  autoComplete="off" onChange={(e) => userUpdate.updatePassword(e.target.value)}/>
                     <Form.Control.Feedback type="invalid">
                         Please choose a password.
                     </Form.Control.Feedback>
@@ -54,9 +56,9 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
                 <Form.Group className='d-flex justify-content-between' >
                     <Button onClick={() => {
                             setIsThereIsError(false);
-                            setUserName('');
-                            setEmail('');
-                            setPassWord('');
+                            userUpdate.updateUsername('');
+                            userUpdate.updateEmail('');
+                            userUpdate.updatePassword('');
                             setPage('login')
                         }
                     }>or Login</Button>
@@ -74,4 +76,4 @@ const SignUp = ({setUserName, setEmail, setPassWord, setPage, handleSubmit, vali
     )
 }
 
-export default SignUp
+export default SignupForm
