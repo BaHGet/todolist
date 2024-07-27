@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
+import LoginForm from "./loginForm";
+import SignupForm from "./signupForm";
+import { Login, Signup } from "../../Utils/HandelAuthentication";
 import './login-form.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Login from "./login";
-import TodoPage from "./../main/todosPage";
-import SignUp from "./signup";
-import { createUser, getUser } from "../../APIs/userApi";
+import { useUserContext } from "../../hooks/useUser";
+import { useErrors, useErrorUpdateContext } from "../../hooks/useError";
 
 
 const Form = ({setSigned, setUser}) => {
-    const [userName, setUserName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassWord] = useState('');
     const [page, setPage] = useState('login');
     const [validated, setValidated] = useState(false);
-    const [isThereIsError, setIsThereIsError] = useState(false);
-    const [error, setError] = useState('');
-    const [isLoading, setLoading] = useState(false);
+    const user = useUserContext();
+    const {isThereIsError, error, isLoading} = useErrors();
+    const {setIsThereIsError, setError, setLoading} = useErrorUpdateContext();
 
     useEffect(() => {
         let user = localStorage.getItem('user')
@@ -25,6 +23,7 @@ const Form = ({setSigned, setUser}) => {
             setSigned(true)
         }
     }, [])
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -34,52 +33,22 @@ const Form = ({setSigned, setUser}) => {
         }
         setValidated(true);
         setLoading(true)
+        
+        const userName = user.userName;
+        const email = user.email;
+        const password = user.password;
         if(page === 'signup'){
-            if(userName && email && password ){
-                const data = {
-                    username: userName.toLowerCase(),
-                    email: email,
-                    password: password
-                }
-                await getUser(data,setError)
-                if(error === 'Wrong Password'){
-                    if(await createUser(data,setError)){
-                        setIsThereIsError(false)
-                        window.location.reload();
-                    }else{
-                        setIsThereIsError(true)
-                    }
-                }else{
-                    setIsThereIsError(true)
-                    setError("Username already exists");
-                    setValidated(false);
-                }
-                
-                setLoading(false)
-            }else{
-                setLoading(false)
-            }
+            Signup(
+                userName, email, password,
+                setIsThereIsError, setError, setValidated, setLoading
+            )
         }
+
         else if(page === 'login'){
-            if(userName.length > 0 && password.length > 0){
-                const data = {
-                    username: userName.toLowerCase(),
-                    password: password
-                }
-                let res = await getUser(data,setError)
-                if(res){
-                    setSigned(true);
-                    localStorage.setItem('user', JSON.stringify({ username: res.username, email: res.email, created_at: res.created_at }));
-                    setUser({ username: res.username, email: res.email, created_at: res.created_at })
-                    setIsThereIsError(false)
-                }else{
-                    setIsThereIsError(true)
-                    setValidated(false);
-                }
-                setLoading(false)
-            }else{
-                setLoading(false)
-            }
+            Login(
+                userName, password,
+                setSigned, setUser, setIsThereIsError, setError, setValidated, setLoading
+            )
         }
         else{
             setLoading(true)
@@ -89,35 +58,27 @@ const Form = ({setSigned, setUser}) => {
     return (
         <>
             <h1 className="text-343d46 my-5 head-line">Todo List</h1>
-            <>
-                {
-                    page === 'login' ?
-                        <Login  
-                            setUserName={setUserName} 
-                            setPassWord={setPassWord} 
-                            setPage={setPage} 
-                            handleSubmit={handleSubmit}  
-                            validated={validated} 
-                            isLoading={isLoading}
-                            setIsThereIsError={setIsThereIsError}
-                        /> 
-                    :
-                        page === 'signup' ?
-                            <SignUp  
-                                setUserName={setUserName} 
-                                setEmail={setEmail} 
-                                setPassWord={setPassWord} 
+                <>
+                    {
+                        page === 'login' ?
+                            <LoginForm  
                                 setPage={setPage} 
                                 handleSubmit={handleSubmit}  
                                 validated={validated} 
-                                setValidated={setValidated}
                                 isLoading={isLoading}
                                 setIsThereIsError={setIsThereIsError}
-                            />
+                            /> 
                         :
-                            <TodoPage />
-                }
-            </>
+                        <SignupForm
+                            setPage={setPage} 
+                            handleSubmit={handleSubmit}  
+                            validated={validated} 
+                            setValidated={setValidated}
+                            isLoading={isLoading}
+                            setIsThereIsError={setIsThereIsError}
+                        />
+                    }
+                </>
             <>
                 {
                     isThereIsError ? 
@@ -135,5 +96,4 @@ const Form = ({setSigned, setUser}) => {
         </>
     )
 }
-
 export default Form;
