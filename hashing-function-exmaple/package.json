@@ -1,0 +1,17 @@
+{
+  "name": "bcrypt",
+  "version": "1.0.0",
+  "description": "mointor for bcrypt",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "BaHGet",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4",
+    "serverless-http": "^3.2.0"
+  }
+}
