@@ -6,6 +6,7 @@
 - `username`
 - `email`
 - `password`
+- `salt`
 > [!IMPORTANT]
 > a password should be **hashed** and store the ***hashed password*** in Db
 
