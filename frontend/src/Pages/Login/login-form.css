@@ -1,0 +1,43 @@
+/* 
+color-palette
+dark-background: #343d46 
+light-background: #c0c5ce
+
+dark-text: #4f5b66
+light-text: #65737e
+
+light: #a7adba
+
+*/
+
+body{
+    background-color: #343d46 !important;
+}
+#root{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    margin-top: 10px;
+}
+.head-line{
+    width: 40vh;
+    height: fit-content;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #343d46;
+    background-color: #a7adba;
+}
+.form-container{
+    position: relative;
+    width: 400px;
+    height: fit-content;
+    padding: 20px;
+}
+
+
+
+@media screen and (max-width: 500px) {
+}
