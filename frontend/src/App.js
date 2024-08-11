@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import  { Route, Routes } from 'react-router-dom';
-import Form from './Components/Login/form';
-import TodosPage from "./Components/main/todosPage";
+import Form from './Pages/Login/form';
+import TodosPage from "./Pages/main/todosPage";
 import Button from 'react-bootstrap/Button';
 import "./App.css"
 import { UserProvider } from "./Context/UserContext";
