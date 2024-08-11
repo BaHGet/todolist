@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button, FloatingLabel } from "react-bootstrap"
+import { Form, Button } from "react-bootstrap"
 import {FloatingLabelComponent, FormGroupComponent} from "../../Components/Form/FromChilds";
 import { createTodo } from "../../APIs/todosApi";
 
@@ -11,14 +11,15 @@ const AddTodo = ({username}) => {
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = async(event) => {
-        const form = event.currentTarget;
+        const form = event.target.form;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+        }else{
+            setValidated(true);
+            await createTodo({username,title, description, priority, dueDate}).then(res => { console.log(res)})
+            window.location.reload();
         }
-        setValidated(true);
-        await createTodo({username,title, description, priority, dueDate}).then(res => { console.log(res)})
-        window.location.reload();
     };
     return (
         <Form 
@@ -26,33 +27,10 @@ const AddTodo = ({username}) => {
             style={{backgroundColor: '#a7adba'}}
             validated={validated}
         >
-            <FloatingLabel controlId="floatingInputName" label="Add Title" className="mb-3 w-100 text-dark">
-                <Form.Control required type="name" placeholder="Add Title" onChange={(e) => setTitle(e.target.value)} />
-                <Form.Control.Feedback type="invalid">
-                    Please type a title.
-                </Form.Control.Feedback>
-        
-            </FloatingLabel>
-            <Form.Group controlId="floatingInputName" label="Add Description" className="mb-3 w-100 text-dark">
-                <Form.Control required as="textarea" type="text" placeholder="Add Description" onChange={(e) => setDescription(e.target.value)} />    
-                <Form.Control.Feedback type="invalid">
-                    Please type a Description.
-                </Form.Control.Feedback>
-        
-            </Form.Group>
-            <FloatingLabel controlId="floatingInputName" label="Add Priority" className="mb-3 w-100 text-dark">
-                <Form.Control required as="input" type="text" placeholder="Add Priority" onChange={(e) => setPriority(e.target.value)}/>
-                <Form.Control.Feedback type="invalid">
-                    Please type a Priority.
-                </Form.Control.Feedback>
-            </FloatingLabel>
-            <Form.Group label="Add Due Date" className="mb-3 w-100 text-dark">
-                <Form.Label>Due Date:  </Form.Label>
-                <input placeholder="Due Date" required type="datetime-local"  onChange={(e) => setDueDate(e.target.value)}/>
-                <Form.Control.Feedback type="invalid">
-                    Please type a Due Date.
-                </Form.Control.Feedback>
-            </Form.Group>
+            <FloatingLabelComponent required props={{type: "text", placeholder: "Add Title", callback: setTitle, ErrorMassage: "Please type a title."}} />
+            <FloatingLabelComponent required props={{type: "text", placeholder: "Add Description", callback: setDescription, ErrorMassage: "Please type a Description."}} />
+            <FloatingLabelComponent required props={{type: "text", placeholder: "Add Priority", callback: setPriority, ErrorMassage: "Please type a Priority."}} />
+            <FormGroupComponent required props={{label: "Due Date:", type: "datetime-local", placeholder: "Due Date", callback: setDueDate, ErrorMassage: "Please type a Due Date."}} />
             <Button variant="dark" data-testid="submit" type="submit" onClick={(e) => { handleSubmit(e) }}>Add</Button>
         </Form>
     )
