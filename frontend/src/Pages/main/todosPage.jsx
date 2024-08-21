@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react"
-import Skeleton from '@mui/material/Skeleton';
-import { Card, Form, Nav} from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import { getTodos, deleteTodo } from "../../APIs/todosApi"
 import "./todo-style.css"
 import Todo from "./todo"
 import NavDropdown from "./navDropdown"
 import AddTodo from "./addTodo";
 import { useWindowResize } from "../../hooks/useWindowResize";
+import { SkeletonCardCompoent } from "../../Components/Card/Cards";
 
 
 const TodosPage = ({user, handelLogout}) => {
@@ -71,58 +71,7 @@ const TodosPage = ({user, handelLogout}) => {
                                 :
                                     "d-flex flex-row flex-wrap justify-content-center align-items-center p-2 "} 
                             >
-                                <Card  style={{ width: '20rem',height: '10rem', margin: '5px', backgroundColor: '#c0c5ce', color: '#4f5b66'}}>
-                                    <Card.Header style={{backgroundColor: '#a7adba'}}>
-                                        <Nav variant="tabs">
-                                            <Nav.Item>
-                                                <Nav.Link href="#todo" className='text-dark'>Active</Nav.Link>
-                                            </Nav.Item>
-                                        </Nav>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <Card.Title> <Skeleton animation="wave" variant="rectangular" width={90} height={18} /> </Card.Title>
-                                        <Card.Subtitle className="fw-lighter"> <Skeleton animation="wave" variant="rectangular" width={210} height={18} /> </Card.Subtitle>
-                                    </Card.Body>
-                                </Card>
-                                <Card  style={{ width: '20rem',height: '10rem', margin: '5px', backgroundColor: '#c0c5ce', color: '#4f5b66'}}>
-                                    <Card.Header style={{backgroundColor: '#a7adba'}}>
-                                        <Nav variant="tabs">
-                                            <Nav.Item>
-                                                <Nav.Link href="#todo" className='text-dark'>Active</Nav.Link>
-                                            </Nav.Item>
-                                        </Nav>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <Card.Title> <Skeleton animation="wave" variant="rectangular" width={90} height={18} /> </Card.Title>
-                                        <Card.Subtitle className="fw-lighter"> <Skeleton animation="wave" variant="rectangular" width={210} height={18} /> </Card.Subtitle>
-                                    </Card.Body>
-                                </Card>
-                                <Card  style={{ width: '20rem',height: '10rem', margin: '5px', backgroundColor: '#c0c5ce', color: '#4f5b66'}}>
-                                    <Card.Header style={{backgroundColor: '#a7adba'}}>
-                                        <Nav variant="tabs">
-                                            <Nav.Item>
-                                                <Nav.Link href="#todo" className='text-dark'>Active</Nav.Link>
-                                            </Nav.Item>
-                                        </Nav>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <Card.Title> <Skeleton animation="wave" variant="rectangular" width={90} height={18} /> </Card.Title>
-                                        <Card.Subtitle className="fw-lighter"> <Skeleton animation="wave" variant="rectangular" width={210} height={18} /> </Card.Subtitle>
-                                    </Card.Body>
-                                </Card>
-                                <Card  style={{ width: '20rem',height: '10rem', margin: '5px', backgroundColor: '#c0c5ce', color: '#4f5b66'}}>
-                                    <Card.Header style={{backgroundColor: '#a7adba'}}>
-                                        <Nav variant="tabs">
-                                            <Nav.Item>
-                                                <Nav.Link href="#todo" className='text-dark'>Active</Nav.Link>
-                                            </Nav.Item>
-                                        </Nav>
-                                    </Card.Header>
-                                    <Card.Body>
-                                        <Card.Title> <Skeleton animation="wave" variant="rectangular" width={90} height={18} /> </Card.Title>
-                                        <Card.Subtitle className="fw-lighter"> <Skeleton animation="wave" variant="rectangular" width={210} height={18} /> </Card.Subtitle>
-                                    </Card.Body>
-                                </Card>
+                                <SkeletonCardCompoent childs={4} />
                             </div>
                         :
                             <div id="todos-container" className={
